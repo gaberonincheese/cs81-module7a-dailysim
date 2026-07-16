@@ -7,12 +7,56 @@
 <body style="font-family: sans-serif; text-align: center; padding-top: 60px; background-color: #eef;">
 
   <h1>My Simulated Day</h1>
-  <div id="output" style="margin-top: 40px; font-size: 1.5rem;"></div>
+  <div id="output" style="margin-top: 40px; font-size: 1.5rem;"> What's on our schedule? </div>
 
   <script>
     const output = document.getElementById("output");
     
-    //ADD CODE HERE
+    let dayActivities = [
+        {time: "morning", activity: "get ready for the day!", mood: "tired", delay: 0},
+        {time: "afternoon", activity: "take the metro to the cmd campus.", mood: "peppy", delay: 1000},
+        {time: "evening", activity: "take the metro home", mood: "fulfilled", delay: 500},
+    ];
+    
+    let outputtedText = "What's on my schedule?";
+    //output.textContent = "What's on my schedule?";
+
+    //dayActivities.forEach(event => { outputtedText += event.activity; });
+
+    function printDailySchedule() {
+        
+        dayActivities.forEach(event => {setTimeout(outputtedText += '\n' + event.activity, event.delay)});
+        //dayActivities.forEach(event => setTimeout(() => outputtedText += '\n' + event.activity, event.delay));
+        
+        //{ setTimeout(() => event.activity, event.delay)}
+        /*setTimeout(() => {
+            dayActivities.forEach(event => {
+                outputtedText += '\n' + event.time;
+            });
+            output.textContent = outputtedText;
+        }, 1000);*/
+        return outputtedText;
+    }
+
+    output.textContent = printDailySchedule();       
+
+    /*function doSetTimeout(i) {
+    setTimeout(function() {
+        alert(i);
+    }, 100);
+    }
+
+    for (var i = 1; i <= 2; ++i)
+    doSetTimeout(i);*/
+
+    // need to call setTimeout multiple times?
+        
+        //output.textContent = dayActivities[0].activity;     
+
+
+    //const array = ['one', 'two', 'three', 'four', 'five'];
+    //output.textContent = (`<ul>${array.map((item) => `<li>${item}</li>`).join('')}</ul>`);
+    //dayActivities.forEach(event) => { output.textContent += event})
 
   </script>
 
