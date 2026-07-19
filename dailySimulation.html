@@ -7,56 +7,56 @@
 <body style="font-family: sans-serif; text-align: center; padding-top: 60px; background-color: #eef;">
 
   <h1>My Simulated Day</h1>
-  <div id="output" style="margin-top: 40px; font-size: 1.5rem;"> What's on our schedule? </div>
+    <p id="intro" style="margin-top: 40px; font-size: 1.5rem;"> What's on my schedule? </p>
+  <div id="output" style="margin-top: 40px; font-size: 1.5rem;"> </div>
 
-  <script>
+    <script>
     const output = document.getElementById("output");
     
     let dayActivities = [
-        {time: "morning", activity: "get ready for the day!", mood: "tired", delay: 0},
-        {time: "afternoon", activity: "take the metro to the cmd campus.", mood: "peppy", delay: 1000},
-        {time: "evening", activity: "take the metro home", mood: "fulfilled", delay: 500},
+        {time: "morning", activity: "eat breakfast", mood: "satisfied", delay: 3000},
+        {time: "morning", activity: "take my medication", mood: "prepared", delay: 3000},
+        {time: "afternoon", activity: "take the metro to the cmd campus", mood: "peppy", delay: 4000},
+        {time: "afternoon", activity: "do my figure drawing class", mood: "productive", delay: 4000},
+        {time: "evening", activity: "cook dinner", mood: "good", delay: 5000},
+        {time: "evening", activity: "wind down for the night", mood: "fulfilled", delay: 5000},
+    ];
+
+    let potentialChoices = [
+        {time: "morning", activity: "do 10 jumping jacks", mood: "energized", delay: 2500},
+        {time: "morning", activity: "write down my thoughts for the coming day", mood: "introspective", delay: 2500},
+        {time: "morning", activity: "draw a quick sketch", mood: "inspired", delay: 2500},
+        {time: "afternoon", activity: "stop by a new place using the expo line", mood: "curious", delay: 3500},
+        {time: "afternoon", activity: "pay a stranger a compliment", mood: "kind", delay: 3500},
+        {time: "afternoon", activity: "pick up a piece of trash", mood: "considerate", delay: 3500},
+        {time: "evening", activity: "work on a fun personal project", mood: "inspired", delay: 4500},
+        {time: "evening", activity: "play a new video game", mood: "expanded", delay: 4500},
+        {time: "evening", activity: "go on a walk", mood: "energized", delay: 4500},
     ];
     
-    let outputtedText = "What's on my schedule?";
-    //output.textContent = "What's on my schedule?";
-
-    //dayActivities.forEach(event => { outputtedText += event.activity; });
+   let outputtedText;
 
     function printDailySchedule() {
-        
-        dayActivities.forEach(event => {setTimeout(outputtedText += '\n' + event.activity, event.delay)});
-        //dayActivities.forEach(event => setTimeout(() => outputtedText += '\n' + event.activity, event.delay));
-        
-        //{ setTimeout(() => event.activity, event.delay)}
-        /*setTimeout(() => {
-            dayActivities.forEach(event => {
-                outputtedText += '\n' + event.time;
-            });
+        dayActivities.forEach(item => setTimeout(function() {
+            outputtedText += 'I need to ' + item.activity + ". Time of day: " + item.time + ". My mood will be: " + item.mood + "!"
             output.textContent = outputtedText;
-        }, 1000);*/
-        return outputtedText;
+        }, item.delay));
+
     }
 
-    output.textContent = printDailySchedule();       
-
-    /*function doSetTimeout(i) {
-    setTimeout(function() {
-        alert(i);
-    }, 100);
+    function sortActivities(newTask) {
+        if (newTask.time == "morning") {
+            dayActivities.unshift(newTask);
+        } else if (newTask.time == "afternoon") {
+            dayActivities.splice(3, 0, newTask);
+        } else {
+            dayActivities.push(newTask);
+        }
     }
-
-    for (var i = 1; i <= 2; ++i)
-    doSetTimeout(i);*/
-
-    // need to call setTimeout multiple times?
-        
-        //output.textContent = dayActivities[0].activity;     
-
-
-    //const array = ['one', 'two', 'three', 'four', 'five'];
-    //output.textContent = (`<ul>${array.map((item) => `<li>${item}</li>`).join('')}</ul>`);
-    //dayActivities.forEach(event) => { output.textContent += event})
+    
+    let randomTask = potentialChoices[Math.floor(Math.random() * potentialChoices.length)];
+    sortActivities(randomTask);
+    printDailySchedule();       
 
   </script>
 
