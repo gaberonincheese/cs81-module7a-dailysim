@@ -7,39 +7,41 @@
 <body style="font-family: sans-serif; text-align: center; padding-top: 60px; background-color: #eef;">
 
   <h1>My Simulated Day</h1>
-    <p id="intro" style="margin-top: 40px; font-size: 1.5rem;"> What's on my schedule? </p>
+    <p id="intro" style="margin-top: 40px; font-size: 1.5rem;"> What's on my schedule for the day? Let's see! </p>
   <div id="output" style="margin-top: 40px; font-size: 1.5rem;"> </div>
 
     <script>
     const output = document.getElementById("output");
     
     let dayActivities = [
-        {time: "morning", activity: "eat breakfast", mood: "satisfied", delay: 3000},
-        {time: "morning", activity: "take my medication", mood: "prepared", delay: 3000},
-        {time: "afternoon", activity: "take the metro to the cmd campus", mood: "peppy", delay: 4000},
-        {time: "afternoon", activity: "do my figure drawing class", mood: "productive", delay: 4000},
-        {time: "evening", activity: "cook dinner", mood: "good", delay: 5000},
-        {time: "evening", activity: "wind down for the night", mood: "fulfilled", delay: 5000},
+        {time: "morning", activity: "Eat breakfast", mood: "satisfied"},
+        {time: "morning", activity: "Take my medication", mood: "prepared"},
+        {time: "afternoon", activity: "Ride the metro to the CMD campus", mood: "peppy"},
+        {time: "afternoon", activity: "Do my figure drawing class", mood: "productive"},
+        {time: "evening", activity: "Cook dinner", mood: "enriched"},
+        {time: "evening", activity: "Wind down for the night", mood: "fulfilled"},
     ];
 
     let potentialChoices = [
-        {time: "morning", activity: "do 10 jumping jacks", mood: "energized", delay: 2500},
-        {time: "morning", activity: "write down my thoughts for the coming day", mood: "introspective", delay: 2500},
-        {time: "morning", activity: "draw a quick sketch", mood: "inspired", delay: 2500},
-        {time: "afternoon", activity: "stop by a new place using the expo line", mood: "curious", delay: 3500},
-        {time: "afternoon", activity: "pay a stranger a compliment", mood: "kind", delay: 3500},
-        {time: "afternoon", activity: "pick up a piece of trash", mood: "considerate", delay: 3500},
-        {time: "evening", activity: "work on a fun personal project", mood: "inspired", delay: 4500},
-        {time: "evening", activity: "play a new video game", mood: "expanded", delay: 4500},
-        {time: "evening", activity: "go on a walk", mood: "energized", delay: 4500},
+        {time: "morning", activity: "Do 10 jumping jacks", mood: "energized"},
+        {time: "morning", activity: "Write down my thoughts for the coming day", mood: "introspective"},
+        {time: "morning", activity: "Draw a quick sketch", mood: "inspired"},
+        {time: "afternoon", activity: "Stop by a new place using the expo line", mood: "curious"},
+        {time: "afternoon", activity: "Pay a stranger a compliment", mood: "kind"},
+        {time: "afternoon", activity: "Pick up a piece of trash", mood: "considerate"},
+        {time: "evening", activity: "Work on a fun personal project", mood: "inspired"},
+        {time: "evening", activity: "Play a new video game", mood: "expanded"},
+        {time: "evening", activity: "Go on a walk", mood: "energized"},
     ];
     
-   let outputtedText;
+   let outputtedText = "";
 
     function printDailySchedule() {
         dayActivities.forEach(item => setTimeout(function() {
-            outputtedText += 'I need to ' + item.activity + ". Time of day: " + item.time + ". My mood will be: " + item.mood + "!"
-            output.textContent = outputtedText;
+            output.insertAdjacentElement("beforeend", document.createElement("br"));
+            outputtedText = item.activity + ". Time of day: " + item.time + ". My mood will be: " + item.mood + "! ";
+            output.insertAdjacentText("beforeend", outputtedText);
+            output = outputtedText;
         }, item.delay));
 
     }
@@ -50,12 +52,31 @@
         } else if (newTask.time == "afternoon") {
             dayActivities.splice(3, 0, newTask);
         } else {
-            dayActivities.push(newTask);
+            dayActivities.splice(dayActivities.length - 1, 0, newTask);
         }
     }
+
+    function addDelay(events) {
+        del = 1000;
+        events.forEach(item => { item.delay = del; del += 500;});
+    }
     
-    let randomTask = potentialChoices[Math.floor(Math.random() * potentialChoices.length)];
-    sortActivities(randomTask);
+    function chooseRandom() {
+        let randomTask;
+        let randomNum;
+        
+        if (potentialChoices.length != 0) {
+            randomNum = Math.floor(Math.random() * potentialChoices.length);
+            randomTask = potentialChoices[randomNum];
+            potentialChoices.splice(randomNum, 1);
+        }
+
+        return randomTask;
+    }
+
+    sortActivities(chooseRandom());
+    sortActivities(chooseRandom());
+    addDelay(dayActivities);
     printDailySchedule();       
 
   </script>
